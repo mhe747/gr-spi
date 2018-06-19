@@ -1,6 +1,6 @@
 /* -*- c++ -*- */
 
-#define MAC_API
+#define SPI_API
 
 %include "gnuradio.i"	// the common stuff
 
