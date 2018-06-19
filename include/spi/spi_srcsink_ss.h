@@ -8,7 +8,7 @@
 #ifndef INCLUDED_SPI_SRCSINK_SS_H
 #define INCLUDED_SPI_SRCSINK_SS_H
 
-#include <gr_sync_block.h>
+#include <gnuradio/sync_block.h>
 
 class spi_srcsink_ss;
 
@@ -16,7 +16,7 @@ typedef boost::shared_ptr<spi_srcsink_ss> spi_srcsink_ss_sptr;
 
 spi_srcsink_ss_sptr spi_make_srcsink_ss (char *device, unsigned int speed);
 
-class spi_srcsink_ss : public gr_sync_block
+class spi_srcsink_ss : public gr::sync_block
 {
 	friend spi_srcsink_ss_sptr spi_make_srcsink_ss (
 					char *device, unsigned int speed);

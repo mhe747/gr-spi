@@ -5,8 +5,7 @@
 %include "std_string.i"
 
 %{
-#include "gnuradio_swig_bug_workaround.h"
-#include "spi_srcsink_ss.h"
+#include <spi/spi_srcsink_ss.h>
 #include <stdexcept>
 %}
 

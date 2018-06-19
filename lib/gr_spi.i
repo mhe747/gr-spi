@@ -4,9 +4,8 @@
 %import "gnuradio.i"
 
 %{
-#include "gnuradio_swig_bug_workaround.h"
-#include "gr_spi_source_s.h"
-#include "gr_spi_srcsink_ss.h"
+#include <spi/gr_spi_source_s.h>
+#include <spi/gr_spi_srcsink_ss.h>
 #include <stdexcept>
 %}
 

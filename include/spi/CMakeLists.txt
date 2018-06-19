@@ -21,8 +21,8 @@
 # Install public header files
 ########################################################################
 install(FILES
-	gr_spi_source_s.h  
-	gr_spi_srcsink_ss.h  
-	spi_srcsink_ss.h
+ gr_spi_source_s.h  
+ gr_spi_srcsink_ss.h  
+ spi_srcsink_ss.h
 	DESTINATION include/spi
 )

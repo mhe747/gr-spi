@@ -1,4 +1,4 @@
-# Copyright 2011,2012 Free Software Foundation, Inc.
+# Copyright 2011 Free Software Foundation, Inc.
 #
 # This file is part of GNU Radio
 #
@@ -18,52 +18,40 @@
 # Boston, MA 02110-1301, USA.
 
 ########################################################################
-# Setup library
+# Include swig generation spiros
 ########################################################################
-include(GrPlatform) #define LIB_SUFFIX
+find_package(SWIG)
+find_package(PythonLibs 2)
+if(NOT SWIG_FOUND OR NOT PYTHONLIBS_FOUND)
+    return()
+endif()
+include(GrSwig)
+include(GrPython)
 
-include_directories(${Boost_INCLUDE_DIR})
-link_directories(${Boost_LIBRARY_DIRS})
+########################################################################
+# Setup swig generation
+########################################################################
+foreach(incdir ${GNURADIO_RUNTIME_INCLUDE_DIRS})
+    list(APPEND GR_SWIG_INCLUDE_DIRS ${incdir}/gnuradio/swig)
+endforeach(incdir)
 
-list(APPEND spi_sources
-	spi_srcsink_ss.cc
-	gr_spi_srcsink_ss.cc
-	gr_spi_source_s.cc
+set(GR_SWIG_LIBRARIES gnuradio-spi)
+set(GR_SWIG_DOC_FILE ${CMAKE_CURRENT_BINARY_DIR}/spi_swig_doc.i)
+set(GR_SWIG_DOC_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+
+GR_SWIG_MAKE(spi_swig spi_swig.i)
+
+########################################################################
+# Install the build swig module
+########################################################################
+GR_SWIG_INSTALL(TARGETS spi_swig DESTINATION ${GR_PYTHON_DIR}/spi)
+
+########################################################################
+# Install swig .i files for development
+########################################################################
+install(
+    FILES
+    spi_swig.i
+    ${CMAKE_CURRENT_BINARY_DIR}/spi_swig_doc.i
+    DESTINATION ${GR_INCLUDE_DIR}/spi/swig
 )
-
-add_library(gnuradio-spi SHARED ${spi_sources})
-target_link_libraries(gnuradio-spi ${Boost_LIBRARIES} ${GNURADIO_RUNTIME_LIBRARIES} ${GNURADIO_PMT_LIBRARIES})
-set_target_properties(gnuradio-spi PROPERTIES DEFINE_SYMBOL "gnuradio_spi_EXPORTS")
-
-########################################################################
-# Install built library files
-########################################################################
-install(TARGETS gnuradio-spi
-    LIBRARY DESTINATION lib${LIB_SUFFIX} # .so/.dylib file
-    ARCHIVE DESTINATION lib${LIB_SUFFIX} # .lib file
-    RUNTIME DESTINATION bin              # .dll file
-)
-
-########################################################################
-# Build and register unit test
-########################################################################
-include(GrTest)
-
-include_directories(${CPPUNIT_INCLUDE_DIRS})
-
-#list(APPEND test_spi_sources
-#    ${CMAKE_CURRENT_SOURCE_DIR}/test_spi.cc
-#    ${CMAKE_CURRENT_SOURCE_DIR}/qa_spi.cc
-#)
-
-#add_executable(test-spi ${test_spi_sources})
-
-#  test-spi
-target_link_libraries(
-  gnuradio-spi
-  ${GNURADIO_RUNTIME_LIBRARIES}
-  ${Boost_LIBRARIES}
-  ${CPPUNIT_LIBRARIES}
-) 
-
-#GR_ADD_TEST(test_spi test-spi)

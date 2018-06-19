@@ -8,7 +8,7 @@
 #ifndef INCLUDED_GR_SPI_SOURCE_S_H
 #define INCLUDED_GR_SPI_SOURCE_S_H
 
-#include <gr_sync_block.h>
+#include <gnuradio/sync_block.h>
 
 class gr_spi_source_s;
 
@@ -16,7 +16,7 @@ typedef boost::shared_ptr<gr_spi_source_s> gr_spi_source_s_sptr;
 
 gr_spi_source_s_sptr gr_make_spi_source_s ();
 
-class gr_spi_source_s : public gr_sync_block
+class gr_spi_source_s : public gr::sync_block
 {
 	int d_fd;
 	unsigned int d_spi_speed;

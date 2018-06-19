@@ -9,8 +9,8 @@
 #include "config.h"
 #endif
 
-#include <spi_srcsink_ss.h>
-#include <gr_io_signature.h>
+#include <spi/spi_srcsink_ss.h>
+#include <gnuradio/io_signature.h>
 #include <fcntl.h>
 #include <linux/types.h>
 #include <linux/spi/spidev.h>
@@ -41,9 +41,9 @@ static const int MAX_OUT = 1;
 static const int MAX_ITEMS = 4096/sizeof(short);
 
 spi_srcsink_ss::spi_srcsink_ss (char *device, unsigned int speed)
-	: gr_sync_block("spi_srcsink_ss",
-	                gr_make_io_signature (MIN_IN, MAX_IN, sizeof (short)),
-	                gr_make_io_signature (MIN_OUT, MAX_OUT, sizeof (short)))
+	: sync_block("spi_srcsink_ss",
+	                gr::io_signature::make(MIN_IN, MAX_IN, sizeof (short)),
+	                gr::io_signature::make(MIN_OUT, MAX_OUT, sizeof (short)))
 {
 	set_output_multiple(MAX_ITEMS); // Short spi_transfers are inefficient
 

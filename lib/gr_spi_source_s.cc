@@ -9,8 +9,8 @@
 #include "config.h"
 #endif
 
-#include <gr_spi_source_s.h>
-#include <gr_io_signature.h>
+#include <spi/gr_spi_source_s.h>
+#include <gnuradio/io_signature.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <linux/types.h>
@@ -27,9 +27,9 @@ static const int MIN_OUT = 1;
 static const int MAX_OUT = 1;
 
 gr_spi_source_s::gr_spi_source_s ()
-	: gr_sync_block("spi_source_s",
-	                gr_make_io_signature (MIN_IN, MAX_IN, sizeof (short)),
-	                gr_make_io_signature (MIN_OUT, MAX_OUT, sizeof (short)))
+	: sync_block("spi_source_s",
+	                gr::io_signature::make(MIN_IN, MAX_IN, sizeof (short)),
+	                gr::io_signature::make(MIN_OUT, MAX_OUT, sizeof (short)))
 {
 }
 
