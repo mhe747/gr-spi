@@ -143,7 +143,7 @@ link_directories(
 )
 
 # Set component parameters
-#set(GR_MAC_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE INTERNAL "" FORCE)
+set(GR_SPI_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE INTERNAL "" FORCE)
 #set(GR_MAC_SWIG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/swig CACHE INTERNAL "" FORCE)
 
 ########################################################################
@@ -161,8 +161,9 @@ add_custom_target(uninstall
 ########################################################################
 # Add subdirectories
 ########################################################################
-add_subdirectory(src/lib)
-add_subdirectory(src/python)
+add_subdirectory(include/spi)
+add_subdirectory(lib)
+add_subdirectory(python)
 add_subdirectory(grc)
 
 ########################################################################
